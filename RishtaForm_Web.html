@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rishta Profile Form</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #faf9f7;
+    color: #1a1a1a;
+    line-height: 1.6;
+    padding: 20px;
+  }
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+    overflow: hidden;
+  }
+  .header {
+    background: linear-gradient(135deg, #c8102e, #8b0000);
+    color: #fff;
+    padding: 36px 32px;
+    text-align: center;
+  }
+  .header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+  .header p {
+    font-size: 15px;
+    opacity: 0.9;
+  }
+  .payment-note {
+    background: #fffbeb;
+    border: 1px solid #fcd34d;
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin: 20px 24px;
+    font-size: 14px;
+    color: #92400e;
+  }
+  .payment-note strong { color: #c61030; }
+  .form-body { padding: 8px 24px 32px; }
+  .section-header {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #c8102e;
+    margin: 32px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #c8102e;
+  }
+  .field {
+    margin-bottom: 20px;
+  }
+  .field label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 6px;
+  }
+  .field label .required { color: #c8102e; margin-left: 3px; }
+  .field label .optional { color: #888; font-weight: 400; font-size: 12px; margin-left: 6px; }
+  input[type="text"],
+  input[type="email"],
+  input[type="number"],
+  input[type="tel"],
+  input[type="date"],
+  select,
+  textarea {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.5px solid #ddd;
+    border-radius: 10px;
+    font-size: 15px;
+    font-family: inherit;
+    background: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    appearance: none;
+  }
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #c8102e;
+    box-shadow: 0 0 0 3px rgba(200,16,46,0.1);
+  }
+  textarea { resize: vertical; min-height: 90px; }
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+  }
+  .radio-group, .checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 4px;
+  }
+  .radio-group label, .checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 400;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 8px 14px;
+    border: 1.5px solid #ddd;
+    border-radius: 8px;
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .radio-group input, .checkbox-group input { width: 16px; height: 16px; cursor: pointer; accent-color: #c8102e; }
+  .radio-group label:has(input:checked),
+  .checkbox-group label:has(input:checked) {
+    border-color: #c8102e;
+    background: #fff0f0;
+    color: #c8102e;
+    font-weight: 600;
+  }
+  .photo-upload {
+    border: 2px dashed #ddd;
+    border-radius: 12px;
+    padding: 28px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .photo-upload:hover { border-color: #c8102e; background: #fff8f8; }
+  .photo-upload input { display: none; }
+  .photo-upload .upload-icon { font-size: 36px; margin-bottom: 8px; }
+  .photo-upload .upload-text { font-size: 14px; color: #666; }
+  .photo-upload .upload-text span { color: #c8102e; text-decoration: underline; }
+  .submit-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #c8102e, #8b0000);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 28px;
+    letter-spacing: 0.3px;
+    transition: opacity 0.2s, transform 0.1s;
+  }
+  .submit-btn:hover { opacity: 0.92; }
+  .submit-btn:active { transform: scale(0.99); }
+  .footer-note {
+    text-align: center;
+    font-size: 12px;
+    color: #999;
+    margin-top: 16px;
+    padding: 0 24px;
+  }
+  @media (max-width: 480px) {
+    body { padding: 10px; }
+    .form-body { padding: 8px 16px 24px; }
+    .header { padding: 28px 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>Rishta Profile Form</h1>
+    <p>Submit your profile to find your match</p>
+  </div>
+
+  <div class="payment-note">
+    <strong>Important:</strong> Payment of <strong>€10</strong> is required before submitting this form.
+    After payment, you will receive the form link. Share your payment receipt via WhatsApp.
+  </div>
+
+  <form class="form-body" id="rishtaForm">
+
+    <!-- SECTION 1 — ABOUT YOU -->
+    <div class="section-header">Section 1 — About You</div>
+
+    <div class="field">
+      <label>Full Name <span class="required">*</span></label>
+      <input type="text" name="full_name" required placeholder="Enter your full name">
+    </div>
+
+    <div class="field" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+      <div class="field">
+        <label>Age <span class="required">*</span></label>
+        <input type="number" name="age" required min="18" max="70" placeholder="Your age">
+      </div>
+      <div class="field">
+        <label>Date of Birth <span class="required">*</span></label>
+        <input type="date" name="dob" required>
+      </div>
+    </div>
+
+    <div class="field" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+      <div class="field">
+        <label>Phone / WhatsApp <span class="required">*</span></label>
+        <input type="tel" name="phone" required placeholder="+39...">
+      </div>
+      <div class="field">
+        <label>Email <span class="required">*</span></label>
+        <input type="email" name="email" required placeholder="your@email.com">
+      </div>
+    </div>
+
+    <!-- SECTION 2 — WHERE YOU ARE -->
+    <div class="section-header">Section 2 — Where You Are</div>
+
+    <div class="field" style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+      <div class="field">
+        <label>Current city <span class="required">*</span></label>
+        <input type="text" name="current_city" required placeholder="e.g. Milan">
+      </div>
+      <div class="field">
+        <label>Current country <span class="required">*</span></label>
+        <select name="current_country" required>
+          <option value="">Select country</option>
+          <option>Italy</option>
+          <option>UK</option>
+          <option>Germany</option>
+          <option>France</option>
+          <option>Spain</option>
+          <option>Switzerland</option>
+          <option>Belgium</option>
+          <option>Other</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Original country / hometown / village <span class="required">*</span></label>
+      <input type="text" name="hometown" required placeholder="e.g. Village in Punjab, India">
+    </div>
+
+    <div class="field">
+      <label>Are you open to relocating? <span class="required">*</span></label>
+      <div class="radio-group">
+        <label><input type="radio" name="relocating" value="Yes" required> Yes</label>
+        <label><input type="radio" name="relocating" value="No"> No</label>
+        <label><input type="radio" name="relocating" value="Sometimes"> Sometimes</label>
+      </div>
+    </div>
+
+    <!-- SECTION 3 — YOUR FAMILY -->
+    <div class="section-header">Section 3 — Your Family</div>
+
+    <div class="field">
+      <label>Family type <span class="required">*</span></label>
+      <div class="radio-group">
+        <label><input type="radio" name="family_type" value="Joint Family" required> Joint Family</label>
+        <label><input type="radio" name="family_type" value="Nuclear Family"> Nuclear Family</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Parents' status <span class="required">*</span></label>
+      <select name="parents_status" required>
+        <option value="">Select</option>
+        <option>Both alive</option>
+        <option>Mother only</option>
+        <option>Father only</option>
+        <option>Neither</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Parents' occupation <span class="required">*</span></label>
+      <input type="text" name="parents_occupation" required placeholder="e.g. Farmer, Business, Retired">
+    </div>
+
+    <div class="field">
+      <label>How many siblings? (brother/sister, married/unmarried) <span class="required">*</span></label>
+      <input type="text" name="siblings" required placeholder="e.g. 1 brother (married), 2 sisters (unmarried)">
+    </div>
+
+    <div class="field">
+      <label>Family origin / village in Punjab or original country <span class="optional">Optional</span></label>
+      <input type="text" name="family_origin" placeholder="e.g. Village in Hoshiarpur, Punjab">
+    </div>
+
+    <!-- SECTION 4 — YOUR LIFE -->
+    <div class="section-header">Section 4 — Your Life</div>
+
+    <div class="field">
+      <label>Marital status <span class="required">*</span></label>
+      <select name="marital_status" required>
+        <option value="">Select</option>
+        <option>Never Married</option>
+        <option>Divorced</option>
+        <option>Widow</option>
+        <option>Widower</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Do you have children? <span class="required">*</span></label>
+      <div class="radio-group">
+        <label><input type="radio" name="has_children" value="Yes" required> Yes</label>
+        <label><input type="radio" name="has_children" value="No"> No</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>If yes, do they live with you?</label>
+      <input type="text" name="children_detail" placeholder="e.g. Yes, lives with me full time">
+    </div>
+
+    <div class="field">
+      <label>Your height <span class="required">*</span></label>
+      <select name="height" required>
+        <option value="">Select height</option>
+        <option>Below 5ft (Below 152 cm)</option>
+        <option>5ft - 5ft 3in (152-160 cm)</option>
+        <option>5ft 3in - 5ft 5in (160-165 cm)</option>
+        <option>5ft 5in - 5ft 7in (165-170 cm)</option>
+        <option>5ft 7in - 5ft 10in (170-178 cm)</option>
+        <option>5ft 10in - 6ft (178-183 cm)</option>
+        <option>Above 6ft (Above 183 cm)</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Describe yourself in 2-3 sentences <span class="required">*</span></label>
+      <textarea name="about_self" required placeholder="Tell us who you are..."></textarea>
+    </div>
+
+    <div class="field">
+      <label>Your hobbies and interests</label>
+      <input type="text" name="hobbies" placeholder="e.g. Cooking, Cricket, Gym, Reading">
+    </div>
+
+    <div class="field">
+      <label>Habits <span class="required">*</span></label>
+      <div class="radio-group">
+        <label><input type="radio" name="habits" value="Neither" required> Neither</label>
+        <label><input type="radio" name="habits" value="Smoking"> Smoking</label>
+        <label><input type="radio" name="habits" value="Drinking"> Drinking</label>
+        <label><input type="radio" name="habits" value="Both"> Both</label>
+      </div>
+    </div>
+
+    <!-- SECTION 5 — YOUR WORK -->
+    <div class="section-header">Section 5 — Your Work</div>
+
+    <div class="field">
+      <label>Education level and field <span class="required">*</span></label>
+      <input type="text" name="education" required placeholder="e.g. Bachelor in Engineering">
+    </div>
+
+    <div class="field">
+      <label>Occupation <span class="required">*</span></label>
+      <div class="radio-group">
+        <label><input type="radio" name="occupation" value="Job" required> Job</label>
+        <label><input type="radio" name="occupation" value="Business"> Business</label>
+        <label><input type="radio" name="occupation" value="Student"> Student</label>
+        <label><input type="radio" name="occupation" value="Other"> Other</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Monthly income range <span class="optional">Optional</span></label>
+      <select name="income_range">
+        <option value="">Prefer not to say</option>
+        <option>Under €1,000</option>
+        <option>€1,000 - €2,000</option>
+        <option>€2,000 - €3,000</option>
+        <option>€3,000 - €5,000</option>
+        <option>Above €5,000</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Do you own property? <span class="required">*</span></label>
+      <div class="radio-group">
+        <label><input type="radio" name="property" value="Yes" required> Yes</label>
+        <label><input type="radio" name="property" value="No"> No</label>
+        <label><input type="radio" name="property" value="Under process"> Under process</label>
+      </div>
+    </div>
+
+    <!-- SECTION 6 — YOUR STORY -->
+    <div class="section-header">Section 6 — Your Story</div>
+
+    <div class="field">
+      <label>Any past relationship the other person should know about? <span class="required">*</span></label>
+      <div class="radio-group">
+        <label><input type="radio" name="past_relationship" value="No" required> No</label>
+        <label><input type="radio" name="past_relationship" value="Yes - tell us below"> Yes — tell us below</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>If yes, tell us briefly:</label>
+      <textarea name="past_relationship_detail" placeholder="Share as much or as little as you like..."></textarea>
+    </div>
+
+    <div class="field">
+      <label>Past marriage problems we should know about? <span class="required">*</span></label>
+      <div class="radio-group">
+        <label><input type="radio" name="marriage_problems" value="No" required> No</label>
+        <label><input type="radio" name="marriage_problems" value="Yes - tell us below"> Yes — tell us below</label>
+        <label><input type="radio" name="marriage_problems" value="Not applicable"> Not applicable</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>If yes, tell us briefly:</label>
+      <textarea name="marriage_problems_detail" placeholder="..."></textarea>
+    </div>
+
+    <div class="field">
+      <label>Any health issues we should know about? <span class="required">*</span></label>
+      <div class="radio-group">
+        <label><input type="radio" name="health_issues" value="No" required> No</label>
+        <label><input type="radio" name="health_issues" value="Yes - tell us below"> Yes — tell us below</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Why did your last rishta not work out? <span class="required">*</span></label>
+      <textarea name="last_rishta_fail" required placeholder="Brief answer is fine..."></textarea>
+    </div>
+
+    <div class="field">
+      <label>What are 3 things you NEED in a partner? <span class="required">*</span></label>
+      <textarea name="need_in_partner" required placeholder="1. ... 2. ... 3. ..."></textarea>
+    </div>
+
+    <div class="field">
+      <label>What are 3 things you CANNOT accept? <span class="required">*</span></label>
+      <textarea name="cannot_accept" required placeholder="1. ... 2. ... 3. ..."></textarea>
+    </div>
+
+    <div class="field">
+      <label>Okay with partner from different sect/panth? <span class="required">*</span></label>
+      <div class="radio-group">
+        <label><input type="radio" name="diff_sect" value="Yes" required> Yes</label>
+        <label><input type="radio" name="diff_sect" value="No"> No</label>
+        <label><input type="radio" name="diff_sect" value="Open to discuss"> Open to discuss</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Okay with partner from different country? <span class="required">*</span></label>
+      <div class="radio-group">
+        <label><input type="radio" name="diff_country" value="Yes" required> Yes</label>
+        <label><input type="radio" name="diff_country" value="No"> No</label>
+        <label><input type="radio" name="diff_country" value="Open to discuss"> Open to discuss</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Any other deal-breakers or important things? <span class="optional">Optional</span></label>
+      <textarea name="other_notes" placeholder="Anything else we should know..."></textarea>
+    </div>
+
+    <!-- SECTION 7 — PHOTO -->
+    <div class="section-header">Section 7 — Photo</div>
+
+    <div class="field">
+      <label>Upload your clear face photo <span class="required">*</span></label>
+      <div class="photo-upload" onclick="document.getElementById('photoInput').click()">
+        <input type="file" id="photoInput" name="photo" accept="image/*" required>
+        <div class="upload-icon">📷</div>
+        <div class="upload-text">Click to upload a photo <span>Browse files</span></div>
+      </div>
+    </div>
+
+    <button type="submit" class="submit-btn">Submit Profile</button>
+
+    <p class="footer-note">
+      Your information is kept private and only shared with potential matches.
+      We will contact you via WhatsApp after review.
+    </p>
+
+  </form>
+</div>
+
+<script>
+document.getElementById('rishtaForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  alert('Form submitted! (This is a demo — connect to Google Forms or your payment processor for real submissions.)');
+});
+</script>
+</body>
+</html>
